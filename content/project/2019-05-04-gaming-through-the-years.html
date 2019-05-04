@@ -1,0 +1,280 @@
+---
+title: Gaming through the years
+author: Andre Davis
+date: '2019-05-04'
+slug: gaming-through-the-years
+categories:
+  - data
+  - analysis
+  - gaming
+  - sales
+tags:
+  - R
+image:
+  caption: ''
+  focal_point: ''
+---
+
+
+
+<p><em>Note</em>: If you try to Knit this document at this time, you <em>will</em> get an error because there is code in this document that has to be edited (by you!) before it will be able to successfully knit!</p>
+<div id="final-project" class="section level2">
+<h2>Final Project</h2>
+<p>This exercise has been generated to practice everything you have learned in this course set.</p>
+<div id="github-setup" class="section level3">
+<h3>GitHub Setup</h3>
+<p>To get started, you’ll want to go to GitHub and start a new repository:</p>
+<ul>
+<li>Call this repository <code>final_project</code>.</li>
+<li>Add a short description</li>
+<li>Check the box to &quot;Initialize this repository with a README.</li>
+<li>Click <code>Create Repository</code></li>
+</ul>
+<p>Once the repository has been created, Click on <code>Clone or download</code> and copy the “Clone with HTTPS” link provided. You’ll use this to clone your repo in RStudio Cloud.</p>
+<p><strong>Note</strong>: If you’re stuck on this, these steps were covered in detail in an earlier course: <a href="https://leanpub.com/universities/courses/jhu/version-control">Version Control</a>. Refer to the materials in this course if you’re stuck on this part of the project.</p>
+</div>
+<div id="rstudio-cloud-setup" class="section level3">
+<h3>RStudio Cloud Setup</h3>
+<p>Go to RStudio Coud and create a new project based on Github. As discussed previously, you’ll want all your data science projects to be organized from the very beginning. Let’s do that now!</p>
+<p>First, use <code>cd</code> to get yourself into the directory of your GitHub Project.</p>
+<p>Once in the correct directory, use <code>mkdir</code> in the terminal to create folders with the following structure:</p>
+<ul>
+<li>data/
+<ul>
+<li>raw_data/</li>
+<li>tidy_data/</li>
+</ul></li>
+<li>code/
+<ul>
+<li>raw_code/</li>
+<li>final_code/</li>
+</ul></li>
+<li>figures/
+<ul>
+<li>exploratory_figures/</li>
+<li>explanatory_figures/</li>
+</ul></li>
+<li>products/
+<ul>
+<li>writing/</li>
+</ul></li>
+</ul>
+<p>Upload the data file into the tidy_data folder and this .Rmd file into the main project directory.</p>
+<p>Once the .Rmd document is in the correct folder, you’ll want to <strong>change the author of this document</strong> to your name at the top of the .Rmd document (in the YAML). Save this change before moving to the next step.</p>
+<p><strong>Note</strong>: If you’re stuck on this, these steps were covered in detail in an earlier course: <a href="https://leanpub.com/universities/courses/jhu/cbds-organizing">Organizing Data Science Projects</a>. Refer to the materials in this course if you’re stuck on this part of the project.</p>
+</div>
+<div id="pushing-to-github" class="section level3">
+<h3>Pushing to GitHub</h3>
+<p>You’ll want to save changes to your project regularly by pushing them to GitHub. Now that you’ve got your file structure set up and have added a code file (.Rmd), it’s a good time to stage, commit, and push these changes to GitHub. Do so now, and then take a long on GitHub to see the changes on their website!</p>
+<p><strong>Note</strong>: If you’re stuck on this, these steps were covered in detail in an earlier course: <a href="https://leanpub.com/universities/courses/jhu/version-control">Version Control</a>. Refer to the materials in this course if you’re stuck on this part of the project.</p>
+</div>
+<div id="the-data" class="section level3">
+<h3>The data</h3>
+<p>Video gaming has a long history as far back as the early 1950s but it did not reach mainstream popularity until the 1970s and 1980s when video arcade games and gaming consoles were introduced to the general public. Since the 1980s, video gaming has become a popular form of entertainment and a part of modern culture in most parts of the world. However, the industry also experienced its first major growing pains in early 1980s as publishing houses appeared and competition became intense.</p>
+<p>The purpose of this project is to explore the development of the video game industry from 1980-2017, and find market opportunities that industry newcomers may be interested in. Our analysis will focus on publishers, game genres and the popularity of genres by region.</p>
+<p>Load the data into a data frame called <code>gaming</code>. Make sure you clean the column names so you remove all the caps and spaces in the names. What package do you need to use?</p>
+<pre class="r"><code>gaming &lt;- read_csv(&quot;data/Video_Games_Sales_as_at_22_Dec_2016.csv&quot;) %&gt;% 
+  clean_names()</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   Name = col_character(),
+##   Platform = col_character(),
+##   Year_of_Release = col_character(),
+##   Genre = col_character(),
+##   Publisher = col_character(),
+##   NA_Sales = col_double(),
+##   EU_Sales = col_double(),
+##   JP_Sales = col_double(),
+##   Other_Sales = col_double(),
+##   Global_Sales = col_double(),
+##   Critic_Score = col_double(),
+##   Critic_Count = col_double(),
+##   User_Score = col_character(),
+##   User_Count = col_double(),
+##   Developer = col_character(),
+##   Rating = col_character()
+## )</code></pre>
+<pre class="r"><code>gaming</code></pre>
+<pre><code>## # A tibble: 16,719 x 16
+##    name  platform year_of_release genre publisher na_sales eu_sales
+##    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Wii … Wii      2006            Spor… Nintendo      41.4    29.0 
+##  2 Supe… NES      1985            Plat… Nintendo      29.1     3.58
+##  3 Mari… Wii      2008            Raci… Nintendo      15.7    12.8 
+##  4 Wii … Wii      2009            Spor… Nintendo      15.6    10.9 
+##  5 Poke… GB       1996            Role… Nintendo      11.3     8.89
+##  6 Tetr… GB       1989            Puzz… Nintendo      23.2     2.26
+##  7 New … DS       2006            Plat… Nintendo      11.3     9.14
+##  8 Wii … Wii      2006            Misc  Nintendo      14.0     9.18
+##  9 New … Wii      2009            Plat… Nintendo      14.4     6.94
+## 10 Duck… NES      1984            Shoo… Nintendo      26.9     0.63
+## # … with 16,709 more rows, and 9 more variables: jp_sales &lt;dbl&gt;,
+## #   other_sales &lt;dbl&gt;, global_sales &lt;dbl&gt;, critic_score &lt;dbl&gt;,
+## #   critic_count &lt;dbl&gt;, user_score &lt;chr&gt;, user_count &lt;dbl&gt;,
+## #   developer &lt;chr&gt;, rating &lt;chr&gt;</code></pre>
+<p>what are the columns in the data? How many observations are in the data? Write your code in the chunk below.</p>
+<pre class="r"><code>colnames(gaming)</code></pre>
+<pre><code>##  [1] &quot;name&quot;            &quot;platform&quot;        &quot;year_of_release&quot;
+##  [4] &quot;genre&quot;           &quot;publisher&quot;       &quot;na_sales&quot;       
+##  [7] &quot;eu_sales&quot;        &quot;jp_sales&quot;        &quot;other_sales&quot;    
+## [10] &quot;global_sales&quot;    &quot;critic_score&quot;    &quot;critic_count&quot;   
+## [13] &quot;user_score&quot;      &quot;user_count&quot;      &quot;developer&quot;      
+## [16] &quot;rating&quot;</code></pre>
+<p>There might be some missing values in the data. Remove all the missing values from the data and calling the new data frame <code>gaming_no_na</code>.</p>
+<pre class="r"><code>gaming_no_na &lt;- gaming %&gt;% drop_na()</code></pre>
+<p>What are the columns in the data. What do you think the column <code>publisher</code> contain?</p>
+<p>WRITE YOUR ANSWER HERE!! -The columns in this dataset are (name,platform,year_of_release,genre,publisher,na_sales,eu_sales,jp_sales,other_sales,global_sales,critic_score,critic_count,user_score,user_count,developer,rating) The publisher column contains the names of the companines who publish the games.</p>
+<p>The column <code>publisher</code> has values such as <em>Sony Computer Entertainment</em>, <em>Sony Computer Entertainment America</em>, <em>Sony Computer Entertainment Europe</em>, <em>Sony Music Entertainment</em> and <em>Sony Online Entertainment</em>. All those companies are subsidiaries of Sony. Use the appropriate dplyr functon to replace all those values with <code>Sony</code>.</p>
+<pre class="r"><code>sony &lt;- c(&quot;Sony Computer Entertainment&quot;,&quot;Sony Computer Entertainment America&quot;,&quot;Sony Computer Entertainment Europe&quot;,&quot;Sony Music Entertainment&quot;,&quot;Sony Online Entertainment&quot;)
+
+gaming_no_na &lt;- gaming %&gt;% mutate(publisher = ifelse(publisher %in% sony , &quot;Sony&quot;, publisher)) </code></pre>
+<p>What are the top 10 publishers by the number of games they produce?</p>
+<pre class="r"><code>gaming_no_na %&gt;% group_by(publisher) %&gt;% 
+  tally() %&gt;% 
+  top_n(10)   </code></pre>
+<pre><code>## Selecting by n</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##    publisher                        n
+##    &lt;chr&gt;                        &lt;int&gt;
+##  1 Activision                     985
+##  2 Electronic Arts               1356
+##  3 Konami Digital Entertainment   834
+##  4 Namco Bandai Games             939
+##  5 Nintendo                       706
+##  6 Sega                           638
+##  7 Sony                           714
+##  8 Take-Two Interactive           422
+##  9 THQ                            715
+## 10 Ubisoft                        933</code></pre>
+<p>The top 10 publishers based off number of game sales are Activision, Electronic Arts, Konami Digial Entertainment, Namaco Bandi Games, Nintendo, Sega, Sony Computer Entertainment,Take-Two Interactive, THQ, and Ubisoft.</p>
+<p>What are the top 10 publishers by the global sales? The top 10 publishers for global sales are Activision, Electronic Arts, Konmai Digitial Entertainment, Mirosoft Game Studios, Nintento,Sega,Sony,Take-Two Interactive,THQ and Ubisoft</p>
+<pre class="r"><code>top_10&lt;-gaming_no_na %&gt;% 
+  group_by(publisher) %&gt;% 
+  summarize(total_sales=sum(global_sales)) %&gt;% 
+  arrange(-total_sales) %&gt;%
+  slice(1:10)   </code></pre>
+<p>Create a horizontal bar plot using ggplot2 that on the Y axis shows the top 10 companies by overall global sales and on the X axis shows the total global sales. Which company sells the most globally?</p>
+<pre class="r"><code>ggplot(top_10,aes(x=reorder(publisher,total_sales),y=total_sales)) + 
+  geom_bar(stat=&quot;identity&quot;,fill=&quot;blue&quot;)+ labs(x=&quot;publisher&quot;,y=&quot;USD&quot;) + coord_flip()</code></pre>
+<p><img src="/project/2019-05-04-gaming-through-the-years_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Use ggplot2 to create a line graph that shows the toal number of games released each year over time. Do you see any trend?</p>
+<pre class="r"><code>games_per_year&lt;-gaming_no_na %&gt;% 
+  group_by(year_of_release) %&gt;% 
+  summarize(game_per_year=n()) 
+
+ggplot(games_per_year,aes(x=as.numeric(year_of_release),y=game_per_year))+ labs(x = &quot;year of release&quot;,y=&quot;games per year&quot;) + geom_line()</code></pre>
+<pre><code>## Warning in FUN(X[[i]], ...): NAs introduced by coercion
+
+## Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_path).</code></pre>
+<p><img src="/project/2019-05-04-gaming-through-the-years_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Do the same graph above for the top 10 companies by global sales but group by the company.</p>
+<pre class="r"><code>top_companies&lt;-gaming_no_na %&gt;% 
+  group_by(publisher,year_of_release) %&gt;% 
+  summarize(total_sales=sum(global_sales))%&gt;%
+  filter(publisher %in% top_10$publisher)
+
+ggplot(top_companies,aes(x=as.numeric(year_of_release),y=total_sales,group=publisher,color=publisher))+ labs(x = &quot;year of release&quot;,y=&quot;total sales&quot;)+ geom_line()</code></pre>
+<pre><code>## Warning in FUN(X[[i]], ...): NAs introduced by coercion
+
+## Warning in FUN(X[[i]], ...): NAs introduced by coercion</code></pre>
+<pre><code>## Warning: Removed 10 rows containing missing values (geom_path).</code></pre>
+<p><img src="/project/2019-05-04-gaming-through-the-years_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>How about a bar plot that shows the global sales by genres? Which genre sells the most (dollar value)?</p>
+<pre class="r"><code>world_sales&lt;-gaming_no_na %&gt;% 
+  group_by(genre) %&gt;% 
+  summarize(sales=sum(global_sales))%&gt;%
+  drop_na(genre)
+
+ggplot(world_sales, aes(x=reorder(genre,sales), y=sales))+ labs(x =&quot;genre&quot;,y=&quot;sales USD&quot;) + geom_bar(stat=&quot;identity&quot;, fill=&quot;yellow&quot;)</code></pre>
+<p><img src="/project/2019-05-04-gaming-through-the-years_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Do the bar plot above but group them by market (Japan, Europe, North America). Do you see any difference between regions?</p>
+<pre class="r"><code>regional_sales&lt;-gaming_no_na %&gt;% 
+  group_by(genre) %&gt;% 
+  summarize(sales_na=sum(na_sales),
+            sales_eu=sum(eu_sales),
+            sales_jp=sum(jp_sales))%&gt;%
+  drop_na(genre)
+
+na&lt;-ggplot(regional_sales, aes(x=reorder(genre,sales_na), y=sales_na))+ labs(x = &quot;genre&quot;,y=&quot;north america sales&quot;) + geom_bar(stat=&quot;identity&quot;, fill=&quot;yellow&quot;)
+
+eu&lt;-ggplot(regional_sales, aes(x=reorder(genre,sales_eu), y=sales_eu))+ labs(x = &quot;genre&quot;,y=&quot;europe sales&quot;) + geom_bar(stat=&quot;identity&quot;, fill=&quot;yellow&quot;)
+
+jp&lt;-ggplot(regional_sales, aes(x=reorder(genre,sales_jp), y=sales_jp))+ labs(x = &quot;genre&quot;,y=&quot;japan sales&quot;) + geom_bar(stat=&quot;identity&quot;, fill=&quot;yellow&quot;)
+
+grid.arrange(na,eu,jp,ncol=2)</code></pre>
+<p><img src="/project/2019-05-04-gaming-through-the-years_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Read the lesson on inferential analysis. We are using linear regression to find what factors determine the sales of a computer game. Use global sales as the dependent variables (Y) and genre, rating, and platform. Make sure to use genre and platform as factors.</p>
+<pre class="r"><code>regression&lt;-lm(global_sales~factor(genre)+rating+factor(platform),data=gaming_no_na)
+regression</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = global_sales ~ factor(genre) + rating + factor(platform), 
+##     data = gaming_no_na)
+## 
+## Coefficients:
+##               (Intercept)     factor(genre)Adventure  
+##                   2.33457                   -0.29167  
+##     factor(genre)Fighting          factor(genre)Misc  
+##                   0.03200                    0.02182  
+##     factor(genre)Platform        factor(genre)Puzzle  
+##                   0.23490                   -0.18407  
+##       factor(genre)Racing  factor(genre)Role-Playing  
+##                   0.05336                    0.11508  
+##      factor(genre)Shooter    factor(genre)Simulation  
+##                   0.12935                   -0.00946  
+##       factor(genre)Sports      factor(genre)Strategy  
+##                   0.05484                   -0.12450  
+##                   ratingE                 ratingE10+  
+##                  -1.68807                   -1.88953  
+##                  ratingEC                  ratingK-A  
+##                  -1.93901                   -0.69073  
+##                   ratingM                   ratingRP  
+##                  -1.39222                   -1.82868  
+##                   ratingT         factor(platform)DC  
+##                  -1.80936                   -0.28866  
+##        factor(platform)DS        factor(platform)GBA  
+##                  -0.13191                   -0.30646  
+##        factor(platform)GC         factor(platform)PC  
+##                  -0.29536                   -0.41401  
+##        factor(platform)PS        factor(platform)PS2  
+##                   0.45367                    0.04879  
+##       factor(platform)PS3        factor(platform)PS4  
+##                   0.18722                    0.26756  
+##       factor(platform)PSP        factor(platform)PSV  
+##                  -0.22755                   -0.41512  
+##       factor(platform)Wii       factor(platform)WiiU  
+##                   0.21411                    0.01079  
+##      factor(platform)X360         factor(platform)XB  
+##                   0.16505                   -0.38457  
+##      factor(platform)XOne  
+##                  -0.01513</code></pre>
+<p>Congratulations! You have completed the project. There are a few final notes:</p>
+</div>
+<div id="add-markdown-text-to-.rmd" class="section level3">
+<h3>Add Markdown Text to .Rmd</h3>
+<p>Before finalizing your project you’ll want be sure there are <strong>comments in your code chunks</strong> and <strong>text outside of your code chunks</strong> to explain what you’re doing in each code chunk. These explanations are incredibly helpful for someone who doesn’t code or someone unfamiliar to your project.</p>
+<p><strong>Note</strong>: If you’re stuck on this, these steps were covered in detail in an earlier course: <a href="https://leanpub.com/universities/courses/jhu/introduction-to-r">Introduction to R</a>. Refer to the R Markdown lesson in this course if you’re stuck on this part (or the next part) of the project.</p>
+</div>
+<div id="knit-your-r-markdown-document" class="section level3">
+<h3>Knit your R Markdown Document</h3>
+<p>Last but not least, you’ll want to <strong>Knit your .Rmd document into an HTML document</strong>. If you get an error, take a look at what the error says and edit your .Rmd document. Then, try to Knit again! Troubleshooting these error messages will teach you a lot about coding in R.</p>
+</div>
+<div id="a-few-final-checks" class="section level3">
+<h3>A Few Final Checks</h3>
+<p>A complete project should have:</p>
+<ul>
+<li>Completed code chunks throughout the .Rmd document (your RMarkdown document should Knit without any error)</li>
+<li>README.md text file explaining your project</li>
+<li>Comments in your code chunks</li>
+<li>Answered all questions throughout this exercise.</li>
+</ul>
+</div>
+<div id="final-push-to-github" class="section level3">
+<h3>Final <code>push</code> to GitHub</h3>
+<p>Now that you’ve finalized your project, you’ll do one final <strong>push to GitHub</strong>. <code>add</code>, <code>commit</code>, and <code>push</code> your work to GitHub. Navigate to your GitHub repository, and answer the final question below!</p>
+<p><strong>Note</strong>: If you’re stuck on this, these steps were covered in detail in an earlier course: <a href="https://leanpub.com/universities/courses/jhu/version-control">Version Control</a>. Refer to the materials in this course if you’re stuck on this part of the project.</p>
+<p>At the end, submit the link to your github repository to us.</p>
+<p>Submit the URL to your <code>final_project</code> GitHub repository below.</p>
+</div>
+</div>

@@ -1,0 +1,15 @@
+---
+title: "Welcome"
+author: "Andre Davis"
+date: 2019-05-03T21:13:14-05:00
+categories: ["R"]
+tags: ["R Markdown", "plot", "regression"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+#Welcome
+
+I'm Andre Davis. I've recently completed the Chromebook Data Science Course Set on Leanpub.
+I'm interested in working with data and answering interesting questions.

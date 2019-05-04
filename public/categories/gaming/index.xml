@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gaming on Andre Davis</title>
+    <link>/categories/gaming/</link>
+    <description>Recent content in gaming on Andre Davis</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Andre Davis 2019</copyright>
+    <lastBuildDate>Sat, 04 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/gaming/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Gaming through the years</title>
+      <link>/project/gaming-through-the-years/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/project/gaming-through-the-years/</guid>
+      <description>Note: If you try to Knit this document at this time, you will get an error because there is code in this document that has to be edited (by you!) before it will be able to successfully knit!
+Final Project This exercise has been generated to practice everything you have learned in this course set.
+GitHub Setup To get started, you’ll want to go to GitHub and start a new repository:</description>
+    </item>
+    
+  </channel>
+</rss>
